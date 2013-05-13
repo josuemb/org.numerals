@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.ordinals
+package org.numerals
 
 /**
  * Custom Number class for get the ordinals.<br/>

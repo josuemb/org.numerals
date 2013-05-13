@@ -3,8 +3,8 @@ package org.cardinalnumbers;
 import static org.junit.Assert.*
 
 import org.junit.Test
-import org.ordinals.CardinalUtil
-import org.ordinals.Number
+import org.numerals.CardinalUtil
+import org.numerals.Number
 
 class CardinalUtilTest {
 	@Test

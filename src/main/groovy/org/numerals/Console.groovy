@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.ordinals
+package org.numerals
 
 /**
  * Class for using cardinals from command line.<br/>

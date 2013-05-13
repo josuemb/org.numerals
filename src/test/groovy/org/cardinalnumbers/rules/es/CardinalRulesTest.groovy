@@ -1,7 +1,7 @@
 package org.cardinalnumbers.rules.es
 
 import org.junit.*;
-import org.ordinals.rules.es.CardinalRules;
+import org.numerals.rules.es.CardinalRules;
 
 import static org.junit.Assert.*
 

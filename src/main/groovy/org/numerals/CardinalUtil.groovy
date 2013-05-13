@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.ordinals
+package org.numerals
 
 /**
  * Utilities for easy get cardinal.<br/>
@@ -22,7 +22,7 @@ package org.ordinals
  * @author Josue Mart&iacute;nez Buenrrostro (@josuemb)
  */
 class CardinalUtil {
-	private final static RULES_PACKAGE_NAME = "org.ordinals.rules"
+	private final static RULES_PACKAGE_NAME = "org.numerals.rules"
 	private final static RULES_CLASS_NAME = "CardinalRules"
 	private final static RULES_METHOD_NAME = "getRules"
 

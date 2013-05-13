@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.ordinals
+package org.numerals
 
 /**
  * Get the cardinals using given rules.<br/>

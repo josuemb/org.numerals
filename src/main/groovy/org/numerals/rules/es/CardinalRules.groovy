@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package org.ordinals.rules.es
+package org.numerals.rules.es
 
-import org.ordinals.Number
-import org.ordinals.rules.es.CardinalRules;
+import org.numerals.Number
+import org.numerals.rules.es.CardinalRules;
 
 /**
  * Clase que contiene las reglas para obtener los cardinales de un n&uacute;mero en

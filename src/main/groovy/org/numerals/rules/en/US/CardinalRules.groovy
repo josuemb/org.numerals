@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package org.ordinals.rules.en.US
+package org.numerals.rules.en.US
 
 import java.util.List;
 
-import org.ordinals.Number
+import org.numerals.Number
 
 /**
  * Class containing rules to get cardinals of a given number

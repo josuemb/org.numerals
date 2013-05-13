@@ -1,8 +1,8 @@
 package org.cardinalnumbers
 
 import org.junit.*;
-import org.ordinals.Cardinal;
-import org.ordinals.Number;
+import org.numerals.Cardinal;
+import org.numerals.Number;
 
 import static org.junit.Assert.*
 

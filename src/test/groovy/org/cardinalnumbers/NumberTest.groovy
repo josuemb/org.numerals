@@ -1,7 +1,7 @@
 package org.cardinalnumbers
 
 import org.junit.Test
-import org.ordinals.Number;
+import org.numerals.Number;
 
 import static org.junit.Assert.*
 
@@ -9,15 +9,15 @@ class NumberTest {
 	@Test
 	public void testDefaultConstructor() {
         def number = new Number()
-        assertNotNull("Error creating org.ordinals.Number",number)
-        assertEquals("Error setting default value for a new org.ordinals.Number",number,"")
+        assertNotNull("Error creating org.numerals.Number",number)
+        assertEquals("Error setting default value for a new org.numerals.Number",number,"")
 	}
     @Test
     public void testSetValue() {
         def number = new Number()
         def val = "123"
         number.value = val
-        assertEquals("Error setting new value for a new org.ordinals.Number",number.value,val)
+        assertEquals("Error setting new value for a new org.numerals.Number",number.value,val)
     }
     @Test
     public void testInvalidNumbers() {

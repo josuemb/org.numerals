@@ -4,7 +4,7 @@ apply plugin:'application'
 
 version = 0.1
 
-mainClassName = "org.ordinals.Console"
+mainClassName = "org.numerals.Console"
 
 defaultTasks 'clean', 'build'
 
