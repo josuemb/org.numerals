@@ -86,7 +86,7 @@ class CardinalRules {
 		Map rulesUnidades = [:]
 		(DIGITO_MIN..DIGITO_MAX).each { digit ->
 			rulesUnidades[digit] = { number ->
-				rulesUnidades[digit] = digit == 0 && number.size()==1?"":unidades[digit]
+				rulesUnidades[digit] = digit == 0 && number.size()!=1?"":unidades[digit]
 			}
 		}
 		return rulesUnidades
