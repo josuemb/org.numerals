@@ -35,6 +35,7 @@ EXECUTING:
   Example (Linux execution with JVM default locale as ES_MX):
 
   user@host:/tmp/numerals-0.1/bin$ ./numerals 123
+  
   [123]=[ciento veintitres]
 
 CONSUMING:
