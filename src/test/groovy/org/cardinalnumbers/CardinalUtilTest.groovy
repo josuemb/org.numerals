@@ -1,13 +1,10 @@
 package org.cardinalnumbers;
 
-import java.util.Locale;
-import java.util.Map;
+import static org.junit.Assert.*
 
 import org.junit.Test
-import org.ordinals.CardinalUtil;
-import org.ordinals.Number;
-
-import static org.junit.Assert.*
+import org.ordinals.CardinalUtil
+import org.ordinals.Number
 
 class CardinalUtilTest {
 	@Test
@@ -58,7 +55,7 @@ class CardinalUtilTest {
 	}
 	@Test
 	public void testGetCardinalWithClass() {
-		def cardinal = CardinalUtil.getCardinal(new Number(1),org.cardinalnumbers.rules.es.CardinalRules)
+		def cardinal = CardinalUtil.getCardinal(new Number(1), org.ordinals.rules.es.CardinalRules.class)
 		assertEquals("Error testing Util.getCardinal(Object value, Class rulesClass)",cardinal,"uno")
 	}
 	@Test
@@ -73,13 +70,13 @@ class CardinalUtilTest {
 	}
 }
 
-private class InvalidRulesClass {
+class InvalidRulesClass {
 	static String getRules() {
 		return "Testing"
 	}
 }
 
-private class ValidRulesClass {
+class ValidRulesClass {
 	static Map getRules() {
 		return [1:[1:"uno"]]
 	}

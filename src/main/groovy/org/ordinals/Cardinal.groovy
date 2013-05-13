@@ -21,7 +21,7 @@ package org.ordinals
  * 
  * @author Josue Mart&iacute;nez Buenrrostro (@josuemb)
  */
-private class Cardinal {
+class Cardinal {
 	Map rules = [:]
 
 	String getCardinal(Number number){

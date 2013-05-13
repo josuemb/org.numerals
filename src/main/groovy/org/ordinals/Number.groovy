@@ -22,71 +22,71 @@ package org.ordinals
  * @author Josue Mart&iacute;nez Buenrrostro (@josuemb)
  */
 class Number {
-    private final static ZERO = "0"
-    private final static REGEX_VALID_NUMBER = /(0*)(\d*)/
-    private String value
+	private final static ZERO = "0"
+	private final static REGEX_VALID_NUMBER = /(0*)(\d*)/
+	private String value
 
-    Number(){
-        this.value = ""
-    }
+	Number(){
+		this.value = ""
+	}
 
-    Number(Object value) {
-        setValue value
-    }
+	Number(Object value) {
+		setValue value
+	}
 
-    String getValue() {
-        return this.value
-    }
+	String getValue() {
+		return this.value
+	}
 
-    void setValue(Object value) {
-        value = value.toString()
-        value = validateNumber(value)
-        this.value = value
-    }
+	void setValue(Object value) {
+		value = value.toString()
+		value = validateNumber(value)
+		this.value = value
+	}
 
-    private String validateNumber(String number){
-        def validatedNumber = ""
-        if(!number) {
-            throw new NumberFormatException("The number: [$number] cannot be null either empty")
-        }
-        def matcher = (number =~ REGEX_VALID_NUMBER)
-        if(matcher.matches() == false) {
-            throw new NumberFormatException("The number: [$number] is invalid. Only digits are valid.")
-        }
-        def leftZeros = matcher[0][1]
-        def otherDigits = matcher[0][2]
-        if(leftZeros && !otherDigits){
-            validatedNumber = ZERO
-        } else {
-            validatedNumber = otherDigits
-        }
-    }
+	private String validateNumber(String number){
+		def validatedNumber = ""
+		if(!number) {
+			throw new NumberFormatException("The number: [$number] cannot be null either empty")
+		}
+		def matcher = (number =~ REGEX_VALID_NUMBER)
+		if(matcher.matches() == false) {
+			throw new NumberFormatException("The number: [$number] is invalid. Only digits are valid.")
+		}
+		def leftZeros = matcher[0][1]
+		def otherDigits = matcher[0][2]
+		if(leftZeros && !otherDigits){
+			validatedNumber = ZERO
+		} else {
+			validatedNumber = otherDigits
+		}
+	}
 
-    int size() {
-        return value.size()
-    }
+	int size() {
+		return value.size()
+	}
 
-    Object getAt(int idx) {
-        return value.getAt(idx).toInteger()
-    }
+	Object getAt(int idx) {
+		return value.getAt(idx).toInteger()
+	}
 
-    Object getAt(Range range){
-        return new Number(value.getAt(range))
-    }
+	Object getAt(Range range){
+		return new Number(value.getAt(range))
+	}
 
-    boolean equals(Object obj) {
-        return this.value.equals(obj.toString())
-    }
-    
-    int hashCode() {
-        value.hashCode()
-    }
+	boolean equals(Object obj) {
+		return this.value.equals(obj.toString())
+	}
 
-    String toString() {
-        return value
-    }
+	int hashCode() {
+		value.hashCode()
+	}
 
-    Object each(Closure closure) {
-        return value.each(closure)
-    }
+	String toString() {
+		return value
+	}
+
+	Object each(Closure closure) {
+		return value.each(closure)
+	}
 }
