@@ -1,9 +1,18 @@
 apply plugin: 'groovy'
 apply plugin: 'eclipse'
+apply plugin:'application'
 
 version = 0.1
 
+mainClassName = "org.ordinals.Console"
+
 defaultTasks 'clean', 'build'
+
+jar {
+    manifest {
+        attributes 'Main-Class': mainClassName
+    }
+}
 
 repositories {
     mavenCentral()
