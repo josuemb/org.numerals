@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.numerals.rules.en.US
+package org.numerals.rules.en
 
 import java.util.List;
 

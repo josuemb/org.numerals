@@ -7,6 +7,19 @@ import org.numerals.CardinalUtil
 import org.numerals.Number
 
 class CardinalUtilTest {
+	private String getCardinalOne(String language) {
+		def cardinalOne = '';
+		switch(language) {
+			case 'en':
+				cardinalOne = 'one';
+			break
+			case 'es':
+				cardinalOne = 'uno'
+			break
+		}
+		return cardinalOne
+	}
+
 	@Test
 	public void testGetRulesInvalidClass() {
 		boolean testOk = false
@@ -66,7 +79,9 @@ class CardinalUtilTest {
 	@Test
 	public void testGetCardinal() {
 		def cardinal = CardinalUtil.getCardinal(new Number(1))
-		assertEquals("Error testing Util.getCardinal(Object value)",cardinal,"uno")
+		def language = Locale.getDefault().language;
+		def cardinalOne = getCardinalOne(language);		
+		assertEquals("Error testing Util.getCardinal(Object value)",cardinal,cardinalOne)
 	}
 }
 
