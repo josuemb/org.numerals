@@ -3,7 +3,7 @@ org.numerals
 
 API for easy Numerals Generation from console or API use.
 
-Currently we support languages: SpanishAnd English with a maximum length of 24 digits.
+Currently we support languages: Spanish and English with a maximum length of 24 digits.
 
 BUILDING:
 
