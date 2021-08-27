@@ -11,7 +11,7 @@ For building packages we need Gradle Build Tool.
 
 Please download and istall it: http://www.gradle.org/docs/current/userguide/installation.html
 
-If you are using Linux/Unix or any other OS with Bash shell support, maybe the besto option will be: http://gvmtool.net/
+If you are using Linux/Unix or any other OS with Bash shell support, maybe the best option will be: http://gvmtool.net/
 
 After install gradle, you can build for console use:
 
