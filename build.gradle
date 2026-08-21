@@ -6,14 +6,20 @@ plugins {
 
 version = 0.1
 
-mainClassName = "org.numerals.Console"
+application {
+    mainClass = "org.numerals.Console"
+}
 
 defaultTasks 'clean', 'build'
 
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
 
 jar {
     manifest {
-        attributes 'Main-Class': mainClassName
+        attributes 'Main-Class': application.mainClass
     }
 }
 
@@ -22,6 +28,12 @@ repositories {
 }
 
 dependencies {
-    implementation group: 'org.codehaus.groovy', name: 'groovy', version: '3.0.18'
-    testImplementation group: 'junit', name: 'junit', version: '4.+'
+    implementation group: 'org.apache.groovy', name: 'groovy', version: '4.0.24'
+    testImplementation platform('org.junit:junit-bom:5.11.4')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+test {
+    useJUnitPlatform()
 }

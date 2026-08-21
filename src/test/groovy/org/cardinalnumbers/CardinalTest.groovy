@@ -1,10 +1,10 @@
 package org.cardinalnumbers
 
-import org.junit.*;
+import org.junit.jupiter.api.Test
 import org.numerals.Cardinal;
 import org.numerals.Number;
 
-import static org.junit.Assert.*
+import static org.junit.jupiter.api.Assertions.*
 
 class CardinalTest {
 	@Test
@@ -16,7 +16,7 @@ class CardinalTest {
         } catch(RuntimeException e) {
             testOK = true
         }
-        assertTrue("Error testing method Cardinal.getRule(position,digit) with empty rules",testOK)
+        assertTrue(testOK, "Error testing method Cardinal.getRule(position,digit) with empty rules")
 	}
     @Test
     public void testGetRuleFromInvalidPositionRules() {
@@ -27,7 +27,7 @@ class CardinalTest {
         } catch(RuntimeException e) {
             testOK = true
         }
-        assertTrue("Error testing method Cardinal.getRule(position,digit) with invalid position",testOK)        
+        assertTrue(testOK, "Error testing method Cardinal.getRule(position,digit) with invalid position")
     }
     @Test
     public void testGetRuleFromInvalidDigitRules() {
@@ -38,14 +38,14 @@ class CardinalTest {
         } catch(RuntimeException e) {
             testOK = true
         }
-        assertTrue("Error testing method Cardinal.getRule(position,digit) with invalid digit",testOK)        
+        assertTrue(testOK, "Error testing method Cardinal.getRule(position,digit) with invalid digit")
     }
     @Test
     public void testGetRuleOK() {
         Cardinal cardinal = new Cardinal(rules:[1:[1:"uno"]])
         boolean testOK = false
         def rule = cardinal.getRule(1,1)
-        assertEquals("Error testing method Cardinal.getRule(position,digit) with valid position and digit",rule,"uno")
+        assertEquals(rule, "uno", "Error testing method Cardinal.getRule(position,digit) with valid position and digit")
     }
     @Test
     public void testGetCardinalString() {
@@ -53,7 +53,7 @@ class CardinalTest {
         Number number = new Number("1")        
         boolean testOK = false
         def cardinalString = cardinal.getCardinal(number)
-        assertEquals("Error testing method Cardinal.getCardinal(number) with StringRule",cardinalString,"uno")
+        assertEquals(cardinalString, "uno", "Error testing method Cardinal.getCardinal(number) with StringRule")
     }
     @Test
     public void testGetCardinalClosureSimple() {
@@ -61,7 +61,7 @@ class CardinalTest {
         Number number = new Number("1")        
         boolean testOK = false
         def cardinalString = cardinal.getCardinal(number)
-        assertEquals("Error testing method Cardinal.getCardinal(number) with simple Closure",cardinalString,"uno")
+        assertEquals(cardinalString, "uno", "Error testing method Cardinal.getCardinal(number) with simple Closure")
     }
     @Test
     public void testGetCardinalClosureComplex() {
@@ -69,7 +69,7 @@ class CardinalTest {
         Number number = new Number("1")        
         boolean testOK = false
         def cardinalString = cardinal.getCardinal(number)
-        assertEquals("Error testing method Cardinal.getCardinal(number) with complex Closure",cardinalString,"6")
+        assertEquals(cardinalString, "6", "Error testing method Cardinal.getCardinal(number) with complex Closure")
     }
     @Test
     public void testGetCardinalClosureOneParameter() {
@@ -77,7 +77,7 @@ class CardinalTest {
         Number number = new Number("1")        
         boolean testOK = false
         def cardinalString = cardinal.getCardinal(number)
-        assertEquals("Error testing method Cardinal.getCardinal(number) with complex Closure",cardinalString,"2")
+        assertEquals(cardinalString, "2", "Error testing method Cardinal.getCardinal(number) with complex Closure")
     }
     @Test
     public void testGetCardinalClosureRecursive() {
@@ -85,6 +85,6 @@ class CardinalTest {
         Number number = new Number("23")        
         boolean testOK = false
         def cardinalString = cardinal.getCardinal(number)
-        assertEquals("Error testing method Cardinal.getCardinal(number) with recursive Closure",cardinalString,"veintitres")
+        assertEquals(cardinalString, "veintitres", "Error testing method Cardinal.getCardinal(number) with recursive Closure")
     }
 }

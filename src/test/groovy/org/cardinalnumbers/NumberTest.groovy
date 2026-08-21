@@ -1,23 +1,23 @@
 package org.cardinalnumbers
 
-import org.junit.Test
+import org.junit.jupiter.api.Test
 import org.numerals.Number;
 
-import static org.junit.Assert.*
+import static org.junit.jupiter.api.Assertions.*
 
 class NumberTest {
 	@Test
 	public void testDefaultConstructor() {
         def number = new Number()
-        assertNotNull("Error creating org.numerals.Number",number)
-        assertEquals("Error setting default value for a new org.numerals.Number",number,"")
+        assertNotNull(number, "Error creating org.numerals.Number")
+        assertEquals(number, "", "Error setting default value for a new org.numerals.Number")
 	}
     @Test
     public void testSetValue() {
         def number = new Number()
         def val = "123"
         number.value = val
-        assertEquals("Error setting new value for a new org.numerals.Number",number.value,val)
+        assertEquals(number.value, val, "Error setting new value for a new org.numerals.Number")
     }
     @Test
     public void testInvalidNumbers() {
@@ -36,7 +36,7 @@ class NumberTest {
                failed << numberString 
             }
         }
-        assertTrue("Error testing invalid numbers $failed",testOk)
+        assertTrue(testOk, "Error testing invalid numbers $failed")
     }
     @Test
     public void testValidNumbers() {
@@ -58,43 +58,43 @@ class NumberTest {
                failed << numberString 
             }
         }
-        assertTrue("Error testing valid numbers $failed",testOk)
+        assertTrue(testOk, "Error testing valid numbers $failed")
     }
     @Test
     public void testSizeProperty() {
         def val = "123"
         def number = new Number(val)
-        assertEquals("Error testing Number.size() property",val.size(),number.size())
+        assertEquals(val.size(), number.size(), "Error testing Number.size() property")
     }
     @Test
     public void testGetAtInteger() {
         def number = new Number("123")
-        assertEquals("Error testing Number.getAt(int) property",number[1],2)
+        assertEquals(number[1], 2, "Error testing Number.getAt(int) property")
     }
     @Test
     public void testGetAtRange() {
         def number = new Number("1234")
-        assertEquals("Error testing Number.getAt(Range) property",number[1..2],new Number("23"))
+        assertEquals(number[1..2], new Number("23"), "Error testing Number.getAt(Range) property")
     }
     @Test
     public void testEquals() {
         def values = [new Number("1234"),1234,"1234",new BigInteger("1234")]
         def number = new Number("1234")
         values.each { value ->
-            assertTrue("Error testing Number.equals() property with values: $number == $value",number==value)
+            assertTrue(number==value, "Error testing Number.equals() property with values: $number == $value")
         }
     }
     @Test
     public void testHashCode() {
         def number1 = new Number("123")
         def number2 = new Number("345")
-        assertNotSame("Error testing Number.hashCode() method",number1.hashCode(),number2.hashCode())
+        assertNotSame(number1.hashCode(), number2.hashCode(), "Error testing Number.hashCode() method")
     }
     @Test
     public void testEach() {
         def number = new Number("123")
         def arrNumber = []
         number.each{arrNumber<<it}
-        assertTrue("Error testing Number.each() method",arrNumber.size() > 0)
+        assertTrue(arrNumber.size() > 0, "Error testing Number.each() method")
     }
 }

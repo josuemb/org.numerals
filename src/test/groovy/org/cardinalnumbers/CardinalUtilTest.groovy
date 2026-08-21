@@ -1,8 +1,8 @@
 package org.cardinalnumbers;
 
-import static org.junit.Assert.*
+import static org.junit.jupiter.api.Assertions.*
 
-import org.junit.Test
+import org.junit.jupiter.api.Test
 import org.numerals.CardinalUtil
 import org.numerals.Number
 
@@ -28,7 +28,7 @@ class CardinalUtilTest {
 		} catch (MissingResourceException e) {
 			testOk = true
 		}
-		assertTrue("Error testing CardinalUtil.getRules method (invalid class)",testOk)
+		assertTrue(testOk, "Error testing CardinalUtil.getRules method (invalid class)")
 	}
 	@Test
 	public void testGetRulesInvalidMethod() {
@@ -38,12 +38,12 @@ class CardinalUtilTest {
 		} catch (ClassCastException e) {
 			testOk = true
 		}
-		assertTrue("Error testing CardinalUtil.getRules method (invalid method)",testOk)
+		assertTrue(testOk, "Error testing CardinalUtil.getRules method (invalid method)")
 	}
 	@Test
 	public void testGetRulesOk() {
 		def rules = CardinalUtil.getRules(ValidRulesClass.class)
-		assertNotNull("Error testing CardinalUtil.getRules method (valid class)",rules)
+		assertNotNull(rules, "Error testing CardinalUtil.getRules method (valid class)")
 	}
 	@Test
 	public void testGetRulesClassError() {
@@ -53,35 +53,35 @@ class CardinalUtilTest {
 		} catch (MissingResourceException e) {
 			testOk = true
 		}
-		assertTrue("Error testing Util.getRulesClass method (invalid Locale)",testOk)
+		assertTrue(testOk, "Error testing Util.getRulesClass method (invalid Locale)")
 	}
 	@Test
 	public void testGetRulesClassOk() {
 		Class clazz = CardinalUtil.getRulesClass(new Locale("ES","MX"))
-		assertNotNull("Error testing Util.getRulesClass method (valid Locale)",clazz)
+		assertNotNull(clazz, "Error testing Util.getRulesClass method (valid Locale)")
 	}
 	@Test
 	public void testGetCardinalWithRules() {
 		def rules = [1:[1:"uno"]]
 		def cardinal = CardinalUtil.getCardinal(new Number(1),rules)
-		assertEquals("Error testing Util.getCardinal(Number number, Map rules)",cardinal,"uno")
+		assertEquals(cardinal, "uno", "Error testing Util.getCardinal(Number number, Map rules)")
 	}
 	@Test
 	public void testGetCardinalWithClass() {
 		def cardinal = CardinalUtil.getCardinal(new Number(1), org.numerals.rules.es.CardinalRules.class)
-		assertEquals("Error testing Util.getCardinal(Object value, Class rulesClass)",cardinal,"uno")
+		assertEquals(cardinal, "uno", "Error testing Util.getCardinal(Object value, Class rulesClass)")
 	}
 	@Test
 	public void testGetCardinalWithLocale() {
 		def cardinal = CardinalUtil.getCardinal(new Number(1),new Locale("es"))
-		assertEquals("Error testing Util.getCardinal(Object value, Locale locale)",cardinal,"uno")
+		assertEquals(cardinal, "uno", "Error testing Util.getCardinal(Object value, Locale locale)")
 	}
 	@Test
 	public void testGetCardinal() {
 		def cardinal = CardinalUtil.getCardinal(new Number(1))
 		def language = Locale.getDefault().language;
 		def cardinalOne = getCardinalOne(language);		
-		assertEquals("Error testing Util.getCardinal(Object value)",cardinal,cardinalOne)
+		assertEquals(cardinal, cardinalOne, "Error testing Util.getCardinal(Object value)")
 	}
 }
 
