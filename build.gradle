@@ -28,7 +28,7 @@ repositories {
 }
 
 dependencies {
-    implementation group: 'org.apache.groovy', name: 'groovy', version: '4.0.33'
+    implementation group: 'org.apache.groovy', name: 'groovy', version: '5.1.0'
     testImplementation platform('org.junit:junit-bom:5.14.4')
     testImplementation 'org.junit.jupiter:junit-jupiter'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
