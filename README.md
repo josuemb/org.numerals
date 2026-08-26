@@ -1,43 +1,68 @@
-org.numerals
-============
+# org.numerals
 
-API for easy Numerals Generation from console or API use.
+A small library for generating the cardinal name of a number ("numerals to words"), usable both as a command-line tool and as a library from your own code.
 
-Currently we support languages: Spanish and English with a maximum length of 24 digits.
+Supported languages: Spanish and English. Maximum length: 24 digits.
 
-BUILDING:
+## Requirements
 
-For building packages we need Gradle Build Tool.
+- Java 21 or newer
+- No separate Gradle install required: the project ships the Gradle wrapper (`gradlew` / `gradlew.bat`)
 
-Please download and istall it: http://www.gradle.org/docs/current/userguide/installation.html
+## Quick start
 
-If you are using Linux/Unix or any other OS with Bash shell support, maybe the best option will be: http://gvmtool.net/
+```bash
+git clone https://github.com/josuemb/org.numerals.git
+cd org.numerals
+./gradlew distZip
+```
 
-After install gradle, you can build for console use:
+Unzip the generated package and run the console tool (see [Usage](#usage) below).
 
-  Zip package:
-    gradle distZip
+## Build
 
-  Tar GZ package:
-    gradle distTar
+The project uses Gradle. Use the bundled wrapper (`./gradlew` on Linux/macOS, `gradlew.bat` on Windows); if you prefer a system-wide install, follow the [Gradle installation guide](https://docs.gradle.org/current/userguide/installation.html) and replace `./gradlew` with `gradle`.
 
-  Now, you can uncompress the file (zip either tar gz) and obtain a directory.
+Build a distributable package for console use:
 
-EXECUTING:
+- Zip package:
 
-  Now you can execute the console version as:
-    Windows:
-      numerals number
+  ```bash
+  ./gradlew distZip
+  ```
 
-    Other:
+- Tar GZ package:
+
+  ```bash
+  ./gradlew distTar
+  ```
+
+The package is written under `build/distributions/`. Uncompress it (zip or tar gz) to obtain a runnable directory named `numerals-<version>` containing a `bin/` directory with the launcher scripts.
+
+## Usage
+
+After uncompressing the distribution, run the console version from its `bin/` directory:
+
+- Windows:
+
+  ```bat
   numerals number
+  ```
 
-  Example (Linux execution with JVM default locale as ES_MX):
+- Linux / macOS / other:
 
-  user@host:/tmp/numerals-0.1/bin$ ./numerals 123
-  
-  [123]=[ciento veintitres]
+  ```bash
+  ./numerals number
+  ```
 
-CONSUMING:
+Example (Linux execution with the JVM default locale set to `es_MX`):
 
-  Use org.numerals.CardinalUtil and see javadoc for using it.
+```text
+user@host:/tmp/numerals-0.1/bin$ ./numerals 123
+
+[123]=[ciento veintitres]
+```
+
+## Use as a library
+
+To generate numerals from your own code, use `org.numerals.CardinalUtil`. See its javadoc for the available methods and details on how to call it.
