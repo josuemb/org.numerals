@@ -161,7 +161,17 @@ class CardinalRules {
 		def numGrupo = number[-(pos)..-(sufijo.rango.from)]
 		def numResto = number[-(sufijo.rango.from-1)..-1]
 
-		cardinal << getCardinal(numGrupo).replaceAll("uno","un")
+		// Apócope de "uno" -> "un" (p. ej. "un millón"), y "...veintiuno" -> "...veintiún"
+		// (formas compuestas apocopadas llevan tilde: veintiún, treinta y un...).
+		def grupoCardinal = getCardinal(numGrupo)
+		grupoCardinal = grupoCardinal.replaceAll(/veintiuno/, "veintiún")
+		grupoCardinal = grupoCardinal.replaceAll(/uno\b/, "un")
+
+		// "1 mil" se dice "mil" (no "un mil"): omitir el "un" cuando el grupo es
+		// exactamente 1 y el sufijo es el singular "mil".
+		if(!(numGrupo == 1 && sufijo.sufijo.trim() == "mil")) {
+			cardinal << grupoCardinal
+		}
 
 		if(arrSufijos.size() > 1 && numGrupo != 1) {
 			cardinal <<  arrSufijos[1]
@@ -174,7 +184,7 @@ class CardinalRules {
 			cardinal << getCardinal(numResto)
 		}
 
-		return cardinal.toString()
+		return cardinal.toString().trim()
 	}
 
 	/**
