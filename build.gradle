@@ -40,6 +40,15 @@ test {
     useJUnitPlatform()
 }
 
+// The sources are Groovy, so the standard javadoc task produces an empty jar.
+// Repackage the javadoc jar (created by the maven-publish plugin) from the
+// groovydoc output instead, so consumers get real API documentation.
+// The jar task is registered by the plugin later, so configure it lazily.
+tasks.matching { it.name == 'mavenPlainJavadocJar' }.configureEach {
+    dependsOn tasks.named('groovydoc')
+    from tasks.named('groovydoc').map { it.destinationDir }
+}
+
 mavenPublishing {
     // Publish to the Central Portal and automatically release after a successful upload.
     publishToMavenCentral()
