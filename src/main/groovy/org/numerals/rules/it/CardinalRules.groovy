@@ -33,6 +33,9 @@ import org.numerals.Number
  * - 1000 e "mille" (non "unomille"); i multipli usano "mila" (duemila).
  * - Le migliaia si attaccano senza spazio (duemilacinquecento); milioni e
  *   miliardi usano uno spazio (un milione, due milioni).
+ * - La scala alterna le forme in -ione e in -iardo ogni 3 cifre: milione (10^6),
+ *   miliardo (10^9), bilione (10^12), biliardo (10^15), trilione (10^18),
+ *   triliardo (10^21), con le magnitudini reali dell'italiano.
  *
  * @author Josue Martinez Buenrrostro (@josuemb)
  */
@@ -51,11 +54,20 @@ class CardinalRules {
 	private static final List cifreElisione = [1, 8]
 	// Ogni centinaio: "cento" e invariabile e si antepone (duecento, trecento, ...).
 	private static final Map centinaia = [1:"cento",2:"duecento",3:"trecento",4:"quattrocento",5:"cinquecento",6:"seicento",7:"settecento",8:"ottocento",9:"novecento"]
+	// Scala italiana: a differenza dello spagnolo/portoghese (che raggruppano per
+	// blocchi di 6 cifre), l'italiano ha una parola di scala ogni 3 cifre oltre le
+	// migliaia, alternando le forme in -ione (milione, bilione, ...) e in -iardo
+	// (miliardo, biliardo, ...). Ogni intervallo copre quindi 3 posizioni:
+	//   10^3  mille/mila      10^6  milione     10^9  miliardo
+	//   10^12 bilione         10^15 biliardo    10^18 trilione   10^21 triliardo
 	private static final List suffissi = [
 		[intervallo:4..6,suffisso:"mille${SEPARATORE_REGOLE}mila"],
-		[intervallo:7..12,suffisso:" milione$SEPARATORE_REGOLE milioni"],
-		[intervallo:13..18,suffisso:" miliardo$SEPARATORE_REGOLE miliardi"],
-		[intervallo:19..24,suffisso:" bilione$SEPARATORE_REGOLE bilioni"]
+		[intervallo:7..9,suffisso:" milione$SEPARATORE_REGOLE milioni"],
+		[intervallo:10..12,suffisso:" miliardo$SEPARATORE_REGOLE miliardi"],
+		[intervallo:13..15,suffisso:" bilione$SEPARATORE_REGOLE bilioni"],
+		[intervallo:16..18,suffisso:" biliardo$SEPARATORE_REGOLE biliardi"],
+		[intervallo:19..21,suffisso:" trilione$SEPARATORE_REGOLE trilioni"],
+		[intervallo:22..24,suffisso:" triliardo$SEPARATORE_REGOLE triliardi"]
 	]
 	static final Map rules = [:]
 

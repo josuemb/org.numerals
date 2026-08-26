@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*
  * - irregular teens (undici .. diciannove),
  * - invariable "cento" hundreds,
  * - "mille" for 1000 and "mila" for multiples (duemila),
- * - "un milione" / "un miliardo" elision before space-separated scale words,
+ * - "un milione" elision and alternating -ione/-iardo scale before space-separated scale words,
  * - input validation.
  */
 class CardinalEdgeCasesTest {
@@ -83,11 +83,15 @@ class CardinalEdgeCasesTest {
 
     @Test
     void scaleWordsAndUnElision() {
-        // Isolated "uno" elides to "un" before milione/miliardo.
+        // "uno" isolato si elide in "un" davanti a milione/miliardo/bilione.
         assertEquals("un milione", words("1000000"))
         assertEquals("ventun milioni", words("21000000"))
-        assertEquals("un miliardo", words("1000000000000"))
-        assertEquals("un bilione", words("1000000000000000000"))
+        // La scala alterna -ione/-iardo ogni 3 cifre, con le magnitudini reali:
+        assertEquals("un miliardo", words("1000000000"))          // 10^9
+        assertEquals("cinque miliardi", words("5000000000"))       // 10^9 plurale
+        assertEquals("un bilione", words("1000000000000"))        // 10^12
+        assertEquals("un biliardo", words("1000000000000000"))    // 10^15
+        assertEquals("un trilione", words("1000000000000000000")) // 10^18
     }
 
     @Test
