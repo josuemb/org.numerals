@@ -11,6 +11,14 @@ Supported languages, selected by locale: Spanish (`es`), English (`en`, plus Bri
 
 ## Quick start
 
+Add the library as a dependency from Maven Central (see [Use as a library](#use-as-a-library)):
+
+```groovy
+implementation 'io.github.josuemb:numerals:0.1.0'
+```
+
+Or clone and build the command-line tool from source:
+
 ```bash
 git clone https://github.com/josuemb/org.numerals.git
 cd org.numerals
@@ -64,5 +72,29 @@ user@host:/tmp/numerals-0.1/bin$ ./numerals 123
 ```
 
 ## Use as a library
+
+The library is published to Maven Central under the coordinates `io.github.josuemb:numerals`. Add it to your build:
+
+- Gradle (Groovy DSL):
+
+  ```groovy
+  implementation 'io.github.josuemb:numerals:0.1.0'
+  ```
+
+- Gradle (Kotlin DSL):
+
+  ```kotlin
+  implementation("io.github.josuemb:numerals:0.1.0")
+  ```
+
+- Maven:
+
+  ```xml
+  <dependency>
+      <groupId>io.github.josuemb</groupId>
+      <artifactId>numerals</artifactId>
+      <version>0.1.0</version>
+  </dependency>
+  ```
 
 To generate numerals from your own code, use `org.numerals.CardinalUtil`. See its javadoc for the available methods and details on how to call it.
