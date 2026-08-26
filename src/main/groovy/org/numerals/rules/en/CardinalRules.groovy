@@ -35,7 +35,7 @@ class CardinalRules {
 	private static final SEPARATOR_TENS = "-"
 	private static final SEPARATOR_HUNDRED = " "
 	private static final POSITION_MIN = 1
-	private static final POSITION_MAX = 15
+	private static final POSITION_MAX = 24
 	private static final DIGIT_MIN = 0
 	private static final DIGIT_MAX = 9
 
@@ -65,7 +65,10 @@ class CardinalRules {
 		[range:4..6,suffix:"thousand"],
 		[range:7..9,suffix:"million"],
 		[range:10..12,suffix:"billion"],
-		[range:13..15,suffix:"trillion"]
+		[range:13..15,suffix:"trillion"],
+		[range:16..18,suffix:"quadrillion"],
+		[range:19..21,suffix:"quintillion"],
+		[range:22..24,suffix:"sextillion"]
 	]
 
 
