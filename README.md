@@ -2,7 +2,7 @@
 
 A small library for generating the cardinal name of a number ("numerals to words"), usable both as a command-line tool and as a library from your own code.
 
-Supported languages, selected by locale: Spanish (`es`), English (`en`), Portuguese (`pt`), Italian (`it`), Catalan (`ca`), and Galician (`gl`). Maximum length: 24 digits.
+Supported languages, selected by locale: Spanish (`es`), English (`en`, plus British English `en_GB` with the "and" connector), Portuguese (`pt`), Italian (`it`), Catalan (`ca`), Galician (`gl`), Romanian (`ro`), Occitan (`oc`), Asturian (`ast`), and Aragonese (`an`). Maximum length: 24 digits.
 
 ## Requirements
 
