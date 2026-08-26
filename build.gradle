@@ -2,9 +2,11 @@ plugins {
     id 'groovy'
     id 'eclipse'
     id 'application'
+    id 'com.vanniktech.maven.publish' version '0.30.0'
 }
 
-version = 0.1
+group = 'io.github.josuemb'
+version = '0.1.0'
 
 application {
     mainClass = "org.numerals.Console"
@@ -36,4 +38,54 @@ dependencies {
 
 test {
     useJUnitPlatform()
+}
+
+// The sources are Groovy, so the standard javadoc task produces an empty jar.
+// Repackage the javadoc jar (created by the maven-publish plugin) from the
+// groovydoc output instead, so consumers get real API documentation.
+// The jar task is registered by the plugin later, so configure it lazily.
+tasks.matching { it.name == 'mavenPlainJavadocJar' }.configureEach {
+    dependsOn tasks.named('groovydoc')
+    from tasks.named('groovydoc').map { it.destinationDir }
+}
+
+mavenPublishing {
+    // Publish to the Central Portal and automatically release after a successful upload.
+    publishToMavenCentral()
+
+    // Only sign when signing credentials are present, so local and CI builds do not fail.
+    if (project.findProperty('signingInMemoryKey') || System.getenv('ORG_GRADLE_PROJECT_signingInMemoryKey')) {
+        signAllPublications()
+    }
+
+    coordinates(group.toString(), 'numerals', version.toString())
+
+    pom {
+        name = 'numerals'
+        description = 'API for easy numerals (cardinal numbers) generation across multiple locales.'
+        url = 'https://github.com/josuemb/org.numerals'
+        inceptionYear = '2011'
+
+        licenses {
+            license {
+                name = 'The Apache License, Version 2.0'
+                url = 'https://www.apache.org/licenses/LICENSE-2.0.txt'
+                distribution = 'repo'
+            }
+        }
+
+        developers {
+            developer {
+                id = 'josuemb'
+                name = 'Josue Martinez Buenrrostro'
+                url = 'https://github.com/josuemb'
+            }
+        }
+
+        scm {
+            url = 'https://github.com/josuemb/org.numerals'
+            connection = 'scm:git:https://github.com/josuemb/org.numerals.git'
+            developerConnection = 'scm:git:ssh://git@github.com/josuemb/org.numerals.git'
+        }
+    }
 }
