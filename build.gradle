@@ -50,8 +50,11 @@ tasks.matching { it.name == 'mavenPlainJavadocJar' }.configureEach {
 }
 
 mavenPublishing {
-    // Publish to the Central Portal and automatically release after a successful upload.
-    publishToMavenCentral()
+    // Publish to the Central Portal (the new Sonatype flow). Without an explicit
+    // host the plugin defaults to the legacy OSSRH/Nexus staging API, which
+    // returns "Cannot get stagingProfiles ... (402)" for Central Portal
+    // namespaces like io.github.josuemb, and automatically release after upload.
+    publishToMavenCentral(com.vanniktech.maven.publish.SonatypeHost.CENTRAL_PORTAL, true)
 
     // Only sign when signing credentials are present, so local and CI builds do not fail.
     if (project.findProperty('signingInMemoryKey') || System.getenv('ORG_GRADLE_PROJECT_signingInMemoryKey')) {
