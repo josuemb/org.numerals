@@ -59,16 +59,19 @@ The project uses Maven. Run the standard lifecycle:
 After building, run the console version with the runnable jar:
 
 ```bash
-java -jar target/numerals-cli.jar <number> [--locale <language[_COUNTRY]>]
+java -jar target/numerals-cli.jar <number> [<number> ...] [--locale <language[_COUNTRY]>]
 ```
 
-The `--locale` flag selects the language; when omitted, the JVM default locale is used.
+The `--locale` flag selects the language and may appear anywhere in the argument
+list, as `--locale es` or `--locale=es`; the value accepts both `es` and
+`es_MX` / `es-MX`. When omitted, the JVM default locale is used. Pass `--help`
+(or `-h`) for usage and examples.
 
 Example:
 
 ```text
-$ java -jar target/numerals-cli.jar 123 --locale es
-[123]=[ciento veintitrés]
+$ java -jar target/numerals-cli.jar 45789 --locale es
+[45789]=[cuarenta y cinco mil setecientos ochenta y nueve]
 ```
 
 ## Use as a library
@@ -97,7 +100,40 @@ The library is published to Maven Central under the coordinates `io.github.josue
   implementation 'io.github.josuemb:numerals:0.2.0'
   ```
 
-To generate numerals from your own code, use `org.numerals.CardinalUtil`. See its javadoc for the available methods and details on how to call it.
+To generate numerals from your own code, use `org.numerals.CardinalEngine`:
+
+```java
+import org.numerals.CardinalEngine;
+import java.util.Locale;
+
+String words = CardinalEngine.cardinal("45789", new Locale("es", "MX"));
+// -> "cuarenta y cinco mil setecientos ochenta y nueve"
+```
+
+See its javadoc for the available methods and details on how to call it.
+
+## Java vs Groovy
+
+This project is a pure-Java port of the original Groovy implementation
+([josuemb/groovy-numerals](https://github.com/josuemb/groovy-numerals)). Both
+produce identical output — verified byte-for-byte across a dense 0–100000 sweep
+plus the full digit scale, in all 11 locales — but the Java version is a
+considerably lighter and faster artifact:
+
+| Aspect                 | Java              | Groovy                  |
+| ---------------------- | ----------------- | ----------------------- |
+| Library jar size       | ~66 KB            | ~253 KB                 |
+| Runtime dependencies   | none              | groovy runtime (~7.7 MB)|
+| Total footprint to run | ~66 KB            | ~8 MB                   |
+| Throughput (100k nums) | ~1.5M numbers/s   | ~69K numbers/s          |
+
+The Java jar has no runtime dependency, so consumers download tens of kilobytes
+rather than the multi-megabyte Groovy runtime. In a warm-JIT micro-benchmark
+generating the Spanish cardinal of 0–99999 (single thread, same JVM), the Java
+version was roughly 20x faster; the gap comes from static dispatch and lambda
+inlining versus Groovy's dynamic method resolution. The throughput numbers are
+from an informal micro-benchmark, not JMH, so treat them as an order of
+magnitude rather than exact figures.
 
 ## History and related projects
 
