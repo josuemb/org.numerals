@@ -19,7 +19,7 @@ Add the library as a dependency from Maven Central (see [Use as a library](#use-
 <dependency>
     <groupId>io.github.josuemb</groupId>
     <artifactId>numerals</artifactId>
-    <version>0.2.0</version>
+    <version>0.2.1</version>
 </dependency>
 ```
 
@@ -84,20 +84,20 @@ The library is published to Maven Central under the coordinates `io.github.josue
   <dependency>
       <groupId>io.github.josuemb</groupId>
       <artifactId>numerals</artifactId>
-      <version>0.2.0</version>
+      <version>0.2.1</version>
   </dependency>
   ```
 
 - Gradle (Kotlin DSL):
 
   ```kotlin
-  implementation("io.github.josuemb:numerals:0.2.0")
+  implementation("io.github.josuemb:numerals:0.2.1")
   ```
 
 - Gradle (Groovy DSL):
 
   ```groovy
-  implementation 'io.github.josuemb:numerals:0.2.0'
+  implementation 'io.github.josuemb:numerals:0.2.1'
   ```
 
 To generate numerals from your own code, use `org.numerals.CardinalEngine`:
