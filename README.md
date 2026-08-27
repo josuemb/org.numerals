@@ -110,7 +110,32 @@ String words = CardinalEngine.cardinal("45789", new Locale("es", "MX"));
 // -> "cuarenta y cinco mil setecientos ochenta y nueve"
 ```
 
+The value may be passed as a `long`, a `java.math.BigInteger` (for values beyond
+`long`'s range — the engine supports up to 24 digits), or any object whose
+`toString()` is a digit string:
+
+```java
+CardinalEngine.cardinal(45789L, new Locale("es", "MX"));
+CardinalEngine.cardinal(new BigInteger("123456789012345678901"), new Locale("es", "MX"));
+```
+
+Call `CardinalEngine.supportedLocales()` to discover the registered locale keys
+(`es`, `en`, `en.GB`, ...) at runtime rather than hard-coding them.
+
 See its javadoc for the available methods and details on how to call it.
+
+### Thread safety
+
+`CardinalEngine` is thread-safe: `cardinal(...)` may be called concurrently from
+any number of threads with no external synchronization. Generation holds no
+mutable per-call state, so CPU-bound bulk conversion can be parallelized
+directly:
+
+```java
+List<String> words = numbers.parallelStream()
+    .map(n -> CardinalEngine.cardinal(n, locale))
+    .toList();
+```
 
 ## Java vs Groovy
 

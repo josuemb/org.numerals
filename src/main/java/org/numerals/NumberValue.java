@@ -46,6 +46,27 @@ public final class NumberValue {
         this.value = alreadyValid;
     }
 
+    /**
+     * Builds a value from a substring of an already-validated number. The input
+     * is known to contain only digits, so the character validation regex is
+     * skipped; only the cheap leading-zero canonicalization is applied (a slice
+     * like the last two digits of "105" is "05" and must canonicalize to "5").
+     * This keeps the recursive slicing in the hot path allocation-light without
+     * re-running the validation pattern at every step.
+     */
+    private static NumberValue ofTrustedSlice(String digits) {
+        return new NumberValue(canonicalize(digits), true);
+    }
+
+    /** Strips leading zeros; an all-zero (or empty) slice canonicalizes to "0". */
+    private static String canonicalize(String digits) {
+        int i = 0;
+        while (i < digits.length() && digits.charAt(i) == '0') {
+            i++;
+        }
+        return i == digits.length() ? ZERO : digits.substring(i);
+    }
+
     private static String validate(String number) {
         if (number == null || number.isEmpty()) {
             throw new NumberFormatException(
@@ -87,7 +108,7 @@ public final class NumberValue {
      * leading zeros in the slice are canonicalized). Mirrors {@code number[-count..-1]}.
      */
     public NumberValue lastDigits(int count) {
-        return new NumberValue(value.substring(value.length() - count));
+        return ofTrustedSlice(value.substring(value.length() - count));
     }
 
     /**
@@ -96,7 +117,7 @@ public final class NumberValue {
      * translated the negative bounds into a left-anchored length.
      */
     public NumberValue firstDigits(int count) {
-        return new NumberValue(value.substring(0, count));
+        return ofTrustedSlice(value.substring(0, count));
     }
 
     /** True when this value equals the given integer (compared by canonical text). */
