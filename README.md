@@ -112,6 +112,19 @@ String words = CardinalEngine.cardinal("45789", new Locale("es", "MX"));
 
 See its javadoc for the available methods and details on how to call it.
 
+### Thread safety
+
+`CardinalEngine` is thread-safe: `cardinal(...)` may be called concurrently from
+any number of threads with no external synchronization. Generation holds no
+mutable per-call state, so CPU-bound bulk conversion can be parallelized
+directly:
+
+```java
+List<String> words = numbers.parallelStream()
+    .map(n -> CardinalEngine.cardinal(n, locale))
+    .toList();
+```
+
 ## Java vs Groovy
 
 This project is a pure-Java port of the original Groovy implementation

@@ -20,6 +20,7 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.MissingResourceException;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Supplier;
 
 import org.numerals.rules.an.CardinalRulesAn;
@@ -50,6 +51,16 @@ import org.numerals.rules.ro.CardinalRulesRo;
  *       position (digit count) and leading digit, then invokes it, passing itself
  *       as the recursion callback so composite rules can render sub-groups.
  * </ul>
+ *
+ * <p><b>Thread safety.</b> This class is thread-safe: {@link #cardinal(Object,
+ * Locale)} and {@link #cardinal(Object)} may be called concurrently from any
+ * number of threads without external synchronization. The rule registry is
+ * populated once in a static initializer and only read afterwards; the per-locale
+ * rule-set cache is a {@link java.util.concurrent.ConcurrentHashMap} populated
+ * with an idempotent factory; and each {@link RuleSet}, once built, is only read.
+ * The generation itself holds no mutable state, so CPU-bound bulk work can be
+ * parallelized directly, e.g.
+ * {@code numbers.parallelStream().map(n -> CardinalEngine.cardinal(n, locale))}.
  */
 public final class CardinalEngine {
 
@@ -59,7 +70,15 @@ public final class CardinalEngine {
      * language's (immutable) rule set is built lazily and cached on first use.
      */
     private static final Map<String, Supplier<RuleSet>> REGISTRY = new HashMap<>();
-    private static final Map<String, RuleSet> CACHE = new HashMap<>();
+
+    /**
+     * Per-locale cache of resolved rule sets. A {@link ConcurrentHashMap} so
+     * {@link #cardinal(Object, Locale)} can be called from multiple threads while
+     * a not-yet-cached locale is being resolved. The factory passed to
+     * {@code computeIfAbsent} is idempotent (it rebuilds the same immutable rule
+     * set), so a benign duplicate build under contention is harmless.
+     */
+    private static final Map<String, RuleSet> CACHE = new ConcurrentHashMap<>();
 
     static {
         REGISTRY.put("es", CardinalRulesEs::ruleSet);
