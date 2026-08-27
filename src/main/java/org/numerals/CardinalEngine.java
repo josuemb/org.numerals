@@ -16,10 +16,14 @@
 
 package org.numerals;
 
+import java.math.BigInteger;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.MissingResourceException;
+import java.util.Set;
+import java.util.TreeSet;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Supplier;
 
@@ -106,6 +110,36 @@ public final class CardinalEngine {
     public static String cardinal(Object value, Locale locale) {
         RuleSet rules = resolve(locale);
         return cardinalOf(new NumberValue(value), rules);
+    }
+
+    /** Cardinal of a non-negative {@code long} using the JVM default locale. */
+    public static String cardinal(long value) {
+        return cardinal(value, Locale.getDefault());
+    }
+
+    /** Cardinal of a non-negative {@code long} for the given locale. */
+    public static String cardinal(long value, Locale locale) {
+        return cardinal(Long.toString(value), locale);
+    }
+
+    /**
+     * Cardinal of a non-negative {@link BigInteger} for the given locale. Use
+     * this for values beyond {@code long}'s range: the engine supports up to 24
+     * digits, which exceeds what a {@code long} can hold (~19 digits).
+     */
+    public static String cardinal(BigInteger value, Locale locale) {
+        return cardinal(value.toString(), locale);
+    }
+
+    /**
+     * The locale keys this engine has rules for, as {@code language} or
+     * {@code language.COUNTRY} paths (e.g. {@code "es"}, {@code "en.GB"}). Useful
+     * for building help text or validating input without hard-coding the list.
+     *
+     * @return an unmodifiable, sorted view of the registered locale paths
+     */
+    public static Set<String> supportedLocales() {
+        return Collections.unmodifiableSet(new TreeSet<>(REGISTRY.keySet()));
     }
 
     /**
